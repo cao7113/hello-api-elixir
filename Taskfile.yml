@@ -1,0 +1,10 @@
+# https://taskfile.dev
+version: "3"
+tasks:
+  default: mix test
+
+  sh: iex -S mix
+  run: iex -S mix run
+  # elixir -S mix run --no-halt --detached
+
+  create: mix new hello-api-elixir --app hello_api
