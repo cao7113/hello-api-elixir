@@ -6,5 +6,6 @@ tasks:
   sh: iex -S mix
   run: iex -S mix run
   # elixir -S mix run --no-halt --detached
+  rel: MIX_ENV=prod mix release --overwrite
 
   create: mix new hello-api-elixir --app hello_api
