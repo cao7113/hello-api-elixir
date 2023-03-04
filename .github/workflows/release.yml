@@ -1,0 +1,22 @@
+name: Elixir Release
+
+on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - actions
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, macos-latest]
+        otp: [25.x]
+        elixir: [1.14.x]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - run: echo runs on ${{ matrix.os }}  ${{ matrix.otp }}  ${{ matrix.elixir }}
