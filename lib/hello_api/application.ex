@@ -12,7 +12,11 @@ defmodule HelloApi.Application do
       # {HelloApi.Worker, arg}
       {
         Plug.Cowboy,
-        scheme: :http, plug: HelloApi.Router, options: [port: 8080]
+        scheme: :http,
+        plug: HelloApi.Router,
+        options: [
+          port: 8080
+        ]
       }
     ]
 
