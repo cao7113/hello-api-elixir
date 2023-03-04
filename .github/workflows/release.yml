@@ -14,7 +14,8 @@ jobs:
   release:
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-latest]
+        # erlef/setup-beam only supports Ubuntu and Windows at this time
+        os: [ubuntu-22.04]
         otp: [25.x]
         elixir: [1.14.x]
     runs-on: ${{ matrix.os }}
