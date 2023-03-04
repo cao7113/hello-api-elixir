@@ -5,7 +5,7 @@ on:
     tags:
       - "v*"
     branches:
-      - actions
+      - release
 
 permissions:
   contents: read
@@ -19,4 +19,20 @@ jobs:
         elixir: [1.14.x]
     runs-on: ${{ matrix.os }}
     steps:
-      - run: echo runs on ${{ matrix.os }}  ${{ matrix.otp }}  ${{ matrix.elixir }}
+      - uses: actions/checkout@v3
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          version-file: .tool-versions
+          version-type: strict
+      - name: Restore dependencies cache
+        uses: actions/cache@v3
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+      - name: Install dependencies
+        run: mix deps.get --only prod
+      - name: Make release
+        run: |
+          MIX_ENV=prod mix release
