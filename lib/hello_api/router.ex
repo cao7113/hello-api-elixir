@@ -18,9 +18,18 @@ defmodule HelloApi.Router do
 
   # Dispatch the connection to the matched handler
   plug(:dispatch)
+
   # Handler for GET request with "/" path
   get "/" do
     send_resp(conn, 200, "OK")
+  end
+
+  get "/version" do
+    send_resp(conn, 200, HelloApi.version())
+  end
+
+  get "/build-version" do
+    send_resp(conn, 200, System.build_info() |> Jason.encode!())
   end
 
   # Fallback handler when there was no match

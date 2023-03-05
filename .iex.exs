@@ -1,0 +1,1 @@
+alias HelloApi, as: H
