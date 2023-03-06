@@ -28,7 +28,7 @@ defmodule HelloApi.Router do
     send_resp(conn, 200, HelloApi.version())
   end
 
-  get "/build-version" do
+  get "/version/build" do
     send_resp(conn, 200, System.build_info() |> Jason.encode!())
   end
 
