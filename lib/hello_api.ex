@@ -1,5 +1,5 @@
 defmodule HelloApi do
-  @moduledoc """
-  Documentation for `HelloApi`.
-  """
+  def version do
+    Application.get_env(:hello_api, :version)
+  end
 end
