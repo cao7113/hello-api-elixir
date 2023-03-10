@@ -14,7 +14,8 @@ defmodule HelloApi.MixProject do
           applications: [runtime_tools: :permanent],
           steps: [:assemble, :tar]
         ]
-      ]
+      ],
+      default_release: :hello_api
     ]
   end
 
