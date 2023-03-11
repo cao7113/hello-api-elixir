@@ -75,7 +75,7 @@ jobs:
               hello/current/bin/hello_api stop || true
             fi
 
-            ln -sf $vsn_dir current
+            ln -sf $vsn_dir hello/current
             hello/current/bin/hello_api daemon_iex
             sleep 2
             hello/current/bin/hello_api pid || true
