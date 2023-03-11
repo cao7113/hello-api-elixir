@@ -1,0 +1,39 @@
+name: Deploy release
+
+on:
+  push:
+    branches:
+      - ssh
+
+permissions:
+  contents: read
+
+jobs:
+  # build:
+  #   name: Build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: executing remote ssh commands using password
+  #     uses: appleboy/ssh-action@v0.1.8
+  #     with:
+  #       host: ${{ secrets.HOST }}
+  #       username: ${{ secrets.USERNAME }}
+  #       password: ${{ secrets.PASSWORD }}
+  #       port: ${{ secrets.PORT }}
+  #       script: whoami
+
+  deploy:
+    name: Deoloy to remote server by ssh
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      # https://github.com/appleboy/ssh-action
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.REMOTE_PRIVKEY }}
+          # password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: ls
