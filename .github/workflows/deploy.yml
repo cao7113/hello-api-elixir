@@ -13,7 +13,6 @@ jobs:
     name: Deoloy to remote server by ssh
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
       # https://github.com/appleboy/ssh-action
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@v0.1.8
@@ -33,4 +32,5 @@ jobs:
               hello/bin/hello_api stop || true
             fi
             hello/bin/hello_api daemon_iex
+            sleep 2
             hello/bin/hello_api pid || true
