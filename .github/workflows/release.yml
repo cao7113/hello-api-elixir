@@ -56,8 +56,8 @@ jobs:
           key: ${{ secrets.REMOTE_PRIVKEY }}
           port: 22
           script: |
-            echo github-tag-name={{ github.ref_name }}
-            vsn={{ github.ref_name }}
+            echo github-tag-name=${{ github.ref_name }}
+            vsn=${{ github.ref_name }}
             vsn_dir=hello/$vsn
 
             if [ ! -d $vsn_dir ]; then 
