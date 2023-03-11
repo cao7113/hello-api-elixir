@@ -2,8 +2,8 @@ name: Deploy release
 
 on:
   push:
-    branches:
-      - ssh
+    tags:
+      - "v*"
 
 permissions:
   contents: read
@@ -22,15 +22,15 @@ jobs:
           key: ${{ secrets.REMOTE_PRIVKEY }}
           port: 22
           script: |
-            pwd
-            if [ ! -d hello ]; then 
-              wget https://github.com/cao7113/hello-api-elixir/releases/download/v0.1.2/hello_api-0.1.0.tar.gz
-              mkdir hello
-              tar -C hello -xzf hello_api-0.1.0.tar.gz
-            else 
-              echo existed hello
-              hello/bin/hello_api stop || true
-            fi
-            hello/bin/hello_api daemon_iex
-            sleep 2
-            hello/bin/hello_api pid || true
+            echo github-tag-name={{ github.ref_name }}
+            # if [ ! -d hello ]; then 
+            #   wget -q https://github.com/cao7113/hello-api-elixir/releases/download/v0.1.2/hello_api-0.1.0.tar.gz
+            #   mkdir hello
+            #   tar -C hello -xzf hello_api-0.1.0.tar.gz
+            # else 
+            #   echo existed hello
+            #   hello/bin/hello_api stop || true
+            # fi
+            # hello/bin/hello_api daemon_iex
+            # sleep 2
+            # hello/bin/hello_api pid || true
