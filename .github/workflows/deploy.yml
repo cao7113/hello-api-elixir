@@ -33,4 +33,4 @@ jobs:
               hello/bin/hello_api stop || true
             fi
             hello/bin/hello_api daemon_iex
-            hello/bin/hello_api pid
+            hello/bin/hello_api pid || true
