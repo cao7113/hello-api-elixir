@@ -58,7 +58,7 @@ jobs:
           script: |
             echo github-tag-name=${{ github.ref_name }}
             vsn=${{ github.ref_name }}
-            vsn_dir=hello/$vsn
+            vsn_dir=~/hello/$vsn
 
             if [ ! -d $vsn_dir ]; then 
               mkdir -p $vsn_dir
