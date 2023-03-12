@@ -1,4 +1,5 @@
-# $0 v0.1.1
+# $0 v0.1.1 ~/hello bin/hello_api
+
 vsn=$1
 app_root=${2:-~/hello}
 bin_path=${3:-bin/hello_api}
@@ -21,8 +22,11 @@ cur_rel=$app_root/current
 full_bin=$cur_rel/$bin_path
 
 if [ -e $cur_rel ]; then
-  echo try stop exist process in $cur_rel
   $full_bin stop || true
+  echo try stop exist process in $cur_rel
+else
+  rm $cur_rel
+  echo clean current release old reference from $cur_rel
 fi
 
 ln -sf $vsn_dir $cur_rel
@@ -37,5 +41,6 @@ while true; do
     sleep 1
   fi
 done
+echo "finished update app version: ${vsn} in ${vsn_dir}"
 
 # clean history versions after ok
