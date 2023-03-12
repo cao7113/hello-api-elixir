@@ -11,10 +11,10 @@ vsn_dir=${app_root}/$vsn
 echo "Preparing deploy $vsn into dir: $vsn_dir"
 
 if [ ! -d $vsn_dir ]; then 
+  vsn_url=https://github.com/${git_repo}/releases/download/${vsn}/${bin_name}-0.1.0.tar.gz 
   echo "Download $vsn app from url: $vsn_url"
   mkdir -p $vsn_dir
   tarfile=${app_root}/${vsn}.tar.gz
-  vsn_url=https://github.com/${git_repo}/releases/download/${vsn}/${bin_name}-0.1.0.tar.gz 
   wget -q -O $tarfile $vsn_url 
   tar -C $vsn_dir -xzf $tarfile
 else 
@@ -28,22 +28,24 @@ if [ -e $cur_rel ]; then
   $full_bin stop 2>/dev/null || true
   echo Stop old process in $cur_rel if need
   rm -f $cur_rel
-  echo Clean current release old link from $cur_rel
+  echo Clean current-release old link from $cur_rel
 fi
 
+echo Setup new current-release link to $vsn_dir and start it at $(date)
 ln -sf $vsn_dir $cur_rel
 $full_bin daemon_iex
 while true; do
   $full_bin pid &>/dev/null
   if [ $? -eq 0 ]; then
+    echo "New release=${vsn} come alive at $(date)"
     sleep 1
     break
   else
-    echo Waiting pid alive $(date)
+    echo Waiting pid alive at $(date)
     sleep 1
   fi
 done
-echo "Congrats! Deploy app version: ${vsn} in ${vsn_dir}"
+echo "Congrats! Deploy app version: ${vsn} in ${vsn_dir} at $(date)"
 echo "bin-path: $full_bin for version: ${vsn}"
 
 ## clean old versions
