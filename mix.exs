@@ -34,7 +34,7 @@ defmodule HelloApi.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:plug_cowboy, "~> 2.6"},
       {:jason, "~> 1.4"},
-      {:versioce, "~> 2.0.0", env: :dev}
+      {:versioce, "~> 2.0.0", only: :dev}
     ]
   end
 end
