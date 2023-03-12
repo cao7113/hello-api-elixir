@@ -4,10 +4,10 @@ defmodule HelloApi do
   def build_data do
     %{
       version: version(),
-      env: Application.get_env(@app, :build_env),
+      build_env: Application.get_env(@app, :build_env),
       commit_id: Application.get_env(@app, :commit_id, "local") |> String.slice(0, 7),
       build_time: Application.get_env(@app, :build_time),
-      system: System.build_info()
+      beam: System.build_info()
     }
   end
 
