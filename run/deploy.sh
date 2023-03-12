@@ -7,11 +7,12 @@ git_repo=${4:-cao7113/hello-api-elixir}
 keep_limit=${5:-3}
 
 bin_name=$(basename $bin_path)
+bare_vsn=$(echo $vsn | sed 's/^v//')
 vsn_dir=${app_root}/$vsn
 echo "Preparing deploy $vsn into dir: $vsn_dir"
 
 if [ ! -d $vsn_dir ]; then 
-  vsn_url=https://github.com/${git_repo}/releases/download/${vsn}/${bin_name}-0.1.0.tar.gz 
+  vsn_url=https://github.com/${git_repo}/releases/download/${vsn}/${bin_name}-${bare_vsn}.tar.gz 
   echo "Download $vsn app from url: $vsn_url"
   mkdir -p $vsn_dir
   tarfile=${app_root}/${vsn}.tar.gz
@@ -34,7 +35,14 @@ fi
 echo Link new current-release to $vsn_dir and start it at $(date -Iseconds)
 ln -sf $vsn_dir $cur_rel
 $full_bin daemon_iex
-while true; do
+timeout=60
+limit=$(( $timeout + 1))
+for i in {1..$limit}; do
+  if [ $i -gt $timeout ]; then 
+    echo "Waiting timeout, more than $timeout seconds at $(date -Iseconds)"
+    exit 1
+  fi
+
   $full_bin pid &>/dev/null
   if [ $? -eq 0 ]; then
     echo "New release=${vsn} come alive at $(date -Iseconds)"
