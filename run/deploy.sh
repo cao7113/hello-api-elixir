@@ -22,10 +22,9 @@ cur_rel=$app_root/current
 full_bin=$cur_rel/$bin_path
 
 if [ -e $cur_rel ]; then
-  $full_bin stop || true
+  $full_bin stop 2>/dev/null || true
   echo try stop exist process in $cur_rel
-else
-  rm $cur_rel
+  rm -f $cur_rel
   echo clean current release old reference from $cur_rel
 fi
 
