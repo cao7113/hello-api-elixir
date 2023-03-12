@@ -35,6 +35,7 @@ jobs:
       - name: Make mix release
         run: |
           export COMMIT_ID=${{ github.sha }}
+          export REPO_URL=${{ github.repositoryUrl }}
           export BUILD_TIME="$(date -Iseconds)"
           MIX_ENV=prod mix release
       - name: Make Github release

@@ -6,6 +6,7 @@ defmodule HelloApi do
       version: version(),
       build_env: Application.get_env(@app, :build_env),
       commit_id: Application.get_env(@app, :commit_id, "local") |> String.slice(0, 7),
+      repo_url: Application.get_env(@app, :repo_url),
       build_time: Application.get_env(@app, :build_time),
       beam: System.build_info()
     }
