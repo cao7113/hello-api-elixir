@@ -31,7 +31,7 @@ if [ -e $cur_rel ]; then
   echo Clean current-release old link from $cur_rel
 fi
 
-echo Setup new current-release link to $vsn_dir and start it at $(date)
+echo Link new current-release to $vsn_dir and start it at $(date)
 ln -sf $vsn_dir $cur_rel
 $full_bin daemon_iex
 while true; do
@@ -45,8 +45,8 @@ while true; do
     sleep 1
   fi
 done
-echo "Congrats! Deploy app version: ${vsn} in ${vsn_dir} at $(date)"
-echo "bin-path: $full_bin for version: ${vsn}"
+echo "Congrats! Deploy app to ${vsn_dir} at $(date)"
+echo "==> bin-path: $full_bin"
 
 ## clean old versions
 cd $app_root
