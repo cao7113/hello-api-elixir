@@ -5,7 +5,7 @@ tasks:
 
   sh: iex -S mix
   run: iex -S mix run
-  up: mix bump patch && git push --tag
+  up: mix bump patch && git push origin main --tag
   # elixir -S mix run --no-halt --detached
   rel: MIX_ENV=prod mix release --overwrite
   prun: _build/prod/rel/hello_api/bin/hello_api start_iex
