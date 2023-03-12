@@ -1,3 +1,3 @@
 import Config
 
-IO.puts("====runtime-config running")
+IO.puts("====runtime-config on version: #{HelloApi.version()}")
