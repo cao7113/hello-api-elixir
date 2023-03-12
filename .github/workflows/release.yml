@@ -47,6 +47,7 @@ jobs:
     needs: release
     steps:
       # https://github.com/appleboy/ssh-action
+      # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -71,6 +72,7 @@ jobs:
               echo "Use existed deploy-script: ${script_path}, manually delete it when need update"
             fi
 
-            export COMMIT_ID="${{ github.sha }}"
+            export COMMIT_ID=${{ github.sha }}
+            echo commit-id=$COMMIT_ID
             export BUILD_TIME="$(date -Iseconds)"
             $script_path $vsn $app_root bin/hello_api ${git_repo} 3
