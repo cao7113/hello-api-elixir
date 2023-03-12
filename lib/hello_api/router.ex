@@ -28,8 +28,8 @@ defmodule HelloApi.Router do
     send_resp(conn, 200, HelloApi.version())
   end
 
-  get "/version/build" do
-    send_resp(conn, 200, System.build_info() |> Jason.encode!())
+  get "/info/build" do
+    send_resp(conn, 200, HelloApi.build_data() |> Jason.encode!())
   end
 
   # Fallback handler when there was no match
