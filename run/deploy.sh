@@ -36,7 +36,7 @@ echo Link new current-release to $vsn_dir and start it at $(date -Iseconds)
 ln -sf $vsn_dir $cur_rel
 $full_bin daemon_iex
 timeout=60
-limit=$(( $timeout + 1))
+limit=$(( $timeout + 1 ))
 for i in {1..$limit}; do
   if [ $i -gt $timeout ]; then 
     echo "Waiting timeout, more than $timeout seconds at $(date -Iseconds)"
