@@ -34,6 +34,8 @@ jobs:
         run: mix deps.get --only prod
       - name: Make mix release
         run: |
+          export COMMIT_ID=${{ github.sha }}
+          export BUILD_TIME="$(date -Iseconds)"
           MIX_ENV=prod mix release
       - name: Make Github release
         uses: softprops/action-gh-release@v1
@@ -72,7 +74,4 @@ jobs:
               echo "Use existed deploy-script: ${script_path}, manually delete it when need update"
             fi
 
-            export COMMIT_ID=${{ github.sha }}
-            echo commit-id=$COMMIT_ID
-            export BUILD_TIME="$(date -Iseconds)"
             $script_path $vsn $app_root bin/hello_api ${git_repo} 3
