@@ -62,13 +62,15 @@ jobs:
             mkdir -p $app_root  
 
 
-            # init deploy script 
+            # init deploy script
             script_path=${app_root}/deploy.sh
             script_url="https://raw.githubusercontent.com/${git_repo}/main/run/deploy.sh"
             if [ ! -e $script_path ]; then
               wget -q -O $script_path $script_url
               chmod +x $script_path
-              echo "setup deploy-script into ${script_path} from ${script_url}"
+              echo "Setup deploy-script into ${script_path} from ${script_url}"
+            else 
+              echo "Use existed deploy-script: ${script_path}, manually delete it when need update"
             fi
 
             $script_path $vsn $app_root bin/hello_api ${git_repo} 3
