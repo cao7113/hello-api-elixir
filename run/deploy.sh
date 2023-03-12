@@ -26,26 +26,26 @@ full_bin=$cur_rel/$bin_path
 
 if [ -e $cur_rel ]; then
   $full_bin stop 2>/dev/null || true
-  echo Stop old process in $cur_rel if need
+  echo Stop old process in $cur_rel if need at $(date -Iseconds)
   rm -f $cur_rel
   echo Clean current-release old link from $cur_rel
 fi
 
-echo Link new current-release to $vsn_dir and start it at $(date)
+echo Link new current-release to $vsn_dir and start it at $(date -Iseconds)
 ln -sf $vsn_dir $cur_rel
 $full_bin daemon_iex
 while true; do
   $full_bin pid &>/dev/null
   if [ $? -eq 0 ]; then
-    echo "New release=${vsn} come alive at $(date)"
+    echo "New release=${vsn} come alive at $(date -Iseconds)"
     sleep 1
     break
   else
-    echo Waiting pid alive at $(date)
+    echo Waiting pid alive at $(date -Iseconds)
     sleep 1
   fi
 done
-echo "Congrats! Deploy app to ${vsn_dir} at $(date)"
+echo "Congrats! Deploy app to ${vsn_dir} at $(date -Iseconds)"
 echo "==> bin-path: $full_bin"
 
 ## clean old versions
