@@ -1,3 +1,6 @@
 import Config
 
-IO.puts("====runtime-config on version: #{HelloApi.version()}")
+port = System.get_env("PORT", "8080") |> String.to_integer()
+
+config :hello_api,
+  port: port

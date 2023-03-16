@@ -5,8 +5,13 @@ defmodule HelloApi.Application do
 
   use Application
 
+  require Logger
+
   @impl true
   def start(_type, _args) do
+    port = Application.get_env(:hello_api, :port, 8080)
+    Logger.info("server running at: http://0.0.0.0:#{port}")
+
     children = [
       # Starts a worker by calling: HelloApi.Worker.start_link(arg)
       # {HelloApi.Worker, arg}
@@ -16,7 +21,7 @@ defmodule HelloApi.Application do
         plug: HelloApi.Router,
         options: [
           # ip: {0, 0, 0, 0},
-          port: 8080
+          port: port
         ]
       }
     ]
