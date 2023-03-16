@@ -61,11 +61,11 @@ jobs:
           script: |
             vsn=${{ github.ref_name }}
             git_repo=${{ github.repository }}
-            app_root=~/hello
-            mkdir -p $app_root  
 
-            # init deploy script
+            app_root=~/hello
             script_path=${app_root}/deploy.sh
+
+            mkdir -p $app_root  
             script_url="https://raw.githubusercontent.com/${git_repo}/main/run/deploy.sh"
             if [ ! -e $script_path ]; then
               wget -q -O $script_path $script_url

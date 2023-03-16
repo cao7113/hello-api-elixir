@@ -1,4 +1,6 @@
-# $0 v0.1.1 ~/hello bin/hello_api cao7113/hello-api-elixir 3
+#! /usr/bin/env sh
+
+# ~/hello/deploy.sh v0.1.34 ~/hello bin/hello_api cao7113/hello-api-elixir 3
 
 vsn=$1
 app_root=${2:-~/hello}
