@@ -15,6 +15,7 @@ defmodule HelloApi.Application do
         scheme: :http,
         plug: HelloApi.Router,
         options: [
+          # ip: {0, 0, 0, 0},
           port: 8080
         ]
       }

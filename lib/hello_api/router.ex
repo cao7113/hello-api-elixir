@@ -24,11 +24,11 @@ defmodule HelloApi.Router do
     send_resp(conn, 200, "OK")
   end
 
-  get "/version" do
-    send_resp(conn, 200, HelloApi.version())
+  get "/ping" do
+    send_resp(conn, 200, "Pong")
   end
 
-  get "/info/build" do
+  get "/info" do
     send_resp(conn, 200, HelloApi.build_data() |> Jason.encode!())
   end
 
