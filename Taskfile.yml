@@ -1,0 +1,22 @@
+# https://taskfile.dev
+version: "3"
+tasks:
+  default: mix test --no-start
+
+  sh: iex -S mix run --no-start
+  run: iex -S mix run
+  # iex -S mix run --no-halt --detached
+
+  up: mix bump patch && git push origin main --tag
+
+  prel: MIX_ENV=prod mix release --overwrite
+  prun: _build/prod/rel/hello_api/bin/hello_api start_iex
+  redo-deps:
+    cmds:
+      - |
+        mix deps.unlock --all && mix deps.clean --all && mix deps.get
+
+  get-info: curl -v http://localhost:4000/info | jq
+  get-user: curl -s http://localhost:4000/users/123
+
+  mk-hello: mix new hello-api-elixir --app hello_api --sup
