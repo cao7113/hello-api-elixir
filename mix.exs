@@ -18,8 +18,7 @@ defmodule HelloApi.MixProject do
         hello_api: [
           include_executables_for: [:unix],
           applications: [runtime_tools: :permanent],
-          # steps: [:assemble, :tar]
-          steps: [:assemble]
+          steps: release_steps(System.get_env("RELEASE_TAR"))
         ]
       ],
       default_release: :hello_api,
@@ -43,4 +42,7 @@ defmodule HelloApi.MixProject do
       {:git_ops, "~> 2.6", only: [:dev], runtime: false}
     ]
   end
+
+  defp release_steps(need_tar) when need_tar in [nil, ""], do: [:assemble]
+  defp release_steps(_), do: [:assemble, :tar]
 end

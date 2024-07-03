@@ -15,6 +15,7 @@ tasks:
   up: mix bump patch && git push origin main --tag
 
   prel: MIX_ENV=prod mix release --overwrite
+  prel-tar: MIX_ENV=prod RELEASE_TAR=1 mix release --overwrite
   prun: _build/prod/rel/hello_api/bin/hello_api start_iex
   redo-deps:
     cmds:
