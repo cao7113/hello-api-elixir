@@ -6,7 +6,7 @@ defmodule HelloApi do
       version: vsn(),
       build_mode: Application.get_env(@app, :build_mode),
       build_time: Application.get_env(@app, :build_time) |> to_string,
-      repo_url: Application.get_env(@app, :repo_url),
+      source_url: Application.get_env(@app, :source_url),
       commit_id: Application.get_env(@app, :commit_id, "") |> String.trim(),
       commit_time: Application.get_env(@app, :commit_time, "") |> parse_commit_time,
       system: System.build_info()

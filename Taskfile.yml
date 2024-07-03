@@ -31,3 +31,8 @@ tasks:
   ## docker images
   dk-builder: docker pull hexpm/elixir:1.17.1-erlang-27.0-debian-bullseye-20240612-slim
   dk-runner: docker pull debian:bullseye-20240612-slim
+
+  ## Git ops
+  cmt: mix git_ops.release
+  init-release: mix git_ops.release --initial
+  app-info: mix git_ops.project_info

@@ -28,6 +28,6 @@ defmodule HelloApiTest.Router do
     # https://hexdocs.pm/ex_unit/ExUnit.Assertions.html#assert/2
     assert conn.state == :sent
     assert conn.status == 200
-    assert conn.resp_body == "OK"
+    assert conn.resp_body == "Ok!"
   end
 end

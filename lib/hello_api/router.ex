@@ -19,7 +19,7 @@ defmodule HelloApi.Router do
   plug(:dispatch)
 
   get "/" do
-    send_resp(conn, 200, "OK")
+    send_resp(conn, 200, "Ok!")
   end
 
   get "/ping" do
