@@ -40,7 +40,7 @@ defmodule HelloApi.MixProject do
   defp deps do
     [
       {:bandit, "~> 1.5"},
-      {:git_ops, "~> 2.6", only: [:dev]}
+      {:git_ops, "~> 2.6", only: [:dev], runtime: false}
     ]
   end
 end
