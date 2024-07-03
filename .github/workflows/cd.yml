@@ -63,7 +63,7 @@ jobs:
           export GIT_COMMIT_ID=${{ github.sha }}
           # export GIT_COMMIT_ID=$(git log -1 --format="%H")
           export GIT_COMMIT_TIME=$(git log -1 --format="%ct")
-          MIX_ENV=prod mix release
+          MIX_ENV=prod RELEASE_TAR=1 mix release
 
       - name: Make Github release
         uses: softprops/action-gh-release@v2
