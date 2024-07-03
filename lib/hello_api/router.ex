@@ -19,7 +19,9 @@ defmodule HelloApi.Router do
   plug(:dispatch)
 
   get "/" do
-    send_resp(conn, 200, "Ok!")
+    conn
+    |> put_resp_header("content-type", "application/json")
+    |> send_resp(200, HelloApi.build_info() |> Jsoner.encode!())
   end
 
   get "/ping" do
@@ -28,12 +30,6 @@ defmodule HelloApi.Router do
 
   get "/hello" do
     send_resp(conn, 200, "World")
-  end
-
-  get "/info" do
-    conn
-    |> put_resp_header("content-type", "application/json")
-    |> send_resp(200, HelloApi.build_info() |> Jsoner.encode!())
   end
 
   get "/users/:id" do

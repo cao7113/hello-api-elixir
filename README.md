@@ -4,8 +4,8 @@ A simple API with Elixir Plug + Bandit.
 
 ## Flying on fly.io
 
+- https://hello-api-elixir.fly.dev
 - https://hello-api-elixir.fly.dev/ping
-- https://hello-api-elixir.fly.dev/info
 
 ## Links
 

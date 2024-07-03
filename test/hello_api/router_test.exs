@@ -17,7 +17,7 @@ defmodule HelloApiTest.Router do
   @tag :capture_log
   test "return ok" do
     # Build a connection which is GET request on / url
-    conn = conn(:get, "/")
+    conn = conn(:get, "/ping")
 
     # Then call Plug.call/2 with the connection and options
     # https://hexdocs.pm/plug/Plug.html#c:call/2
@@ -28,6 +28,6 @@ defmodule HelloApiTest.Router do
     # https://hexdocs.pm/ex_unit/ExUnit.Assertions.html#assert/2
     assert conn.state == :sent
     assert conn.status == 200
-    assert conn.resp_body == "Ok!"
+    assert conn.resp_body == "Pong"
   end
 end
