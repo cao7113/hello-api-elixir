@@ -7,5 +7,4 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 ## [v0.1.0](https://github.com/cao7113/hello-api-elixir/compare/v0.1.0...v0.1.0) (2024-07-03)
 
-
-
+Init hello-api project
