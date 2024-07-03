@@ -3,16 +3,20 @@ defmodule HelloApi do
 
   def build_info do
     %{
-      version: version(),
+      version: vsn(),
       build_mode: Application.get_env(@app, :build_mode),
-      commit_id: Application.get_env(@app, :commit_id, "local") |> String.slice(0, 7),
+      build_time: Application.get_env(@app, :build_time) |> to_string,
       repo_url: Application.get_env(@app, :repo_url),
-      build_time: Application.get_env(@app, :build_time),
+      commit_id: Application.get_env(@app, :commit_id, "") |> String.trim(),
+      commit_time: Application.get_env(@app, :commit_time, "") |> parse_commit_time,
       system: System.build_info()
     }
   end
 
-  def version do
-    Application.get_env(@app, :version)
-  end
+  def vsn, do: Application.spec(@app, :vsn) |> to_string()
+
+  def parse_commit_time(""), do: nil
+
+  def parse_commit_time(tm_str),
+    do: tm_str |> String.trim() |> String.to_integer() |> DateTime.from_unix!() |> to_string()
 end

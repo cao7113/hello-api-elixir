@@ -27,7 +27,7 @@ defmodule HelloApi.Router do
   end
 
   get "/hello" do
-    send_resp(conn, 200, "world")
+    send_resp(conn, 200, "World")
   end
 
   get "/info" do
@@ -42,6 +42,6 @@ defmodule HelloApi.Router do
 
   # Fallback handler when there was no match
   match _ do
-    send_resp(conn, 404, "oops")
+    send_resp(conn, 404, "Oops...")
   end
 end
