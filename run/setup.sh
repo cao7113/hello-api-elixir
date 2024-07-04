@@ -6,7 +6,10 @@ mkdir -p $app_root
 script_path=${app_root}/deploy.sh
 git_repo=cao7113/hello-api-elixir
 
-mkdir -p $app_root  
+mkdir -p $app_root
+# force clean old version
+[ -f $script_path ] && rm -fr $script_path
+
 script_url="https://raw.githubusercontent.com/${git_repo}/main/run/deploy.sh"
 if [ ! -e $script_path ]; then
   wget -q -O $script_path $script_url

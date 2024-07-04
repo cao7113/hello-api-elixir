@@ -35,10 +35,14 @@ tasks:
 
   ## Local prod env in Orbstack
   # run `orb` into default ubuntu env, now in current project path
-  # run: `run/setup.sh _build/prod-orb` to setup deploy.sh
-  # run: `_build/prod-orb/deploy.sh v0.1.4` to deploy a version from github vsn release
-  # current release at: _build/prod-orb/current
-  # Visit by: http://ubox1.orb.local:4000/
+  orb-ping: curl http://ubox1.orb.local:4000/ | jq
+  orb-run: _build/prod-orb/current/bin/hello_api {{.CLI_ARGS}}
+  orb-pid: task orb-run -- pid
+  orb-sh: task orb-run -- remote
+  # deploy a version from github vsn release, as: task orb-deploy -- v0.1.4
+  orb-deploy: _build/prod-orb/deploy.sh {{.CLI_ARGS}}
+  orb-deploy-setup: run/setup.sh _build/prod-orb
+  orb-deploy-setup-local: cp run/deploy.sh _build/prod-orb/
 
   ## Docker env
   dk-builder: docker pull hexpm/elixir:1.17.1-erlang-27.0-debian-bullseye-20240612-slim

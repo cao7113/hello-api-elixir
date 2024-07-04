@@ -42,12 +42,23 @@ if [ -e $cur_rel ]; then
   echo Clean current-release old link from $cur_rel
 fi
 
-echo Link new current-release to $vsn_dir and start it at $(date -Iseconds)
+echo Link new current-release to $vsn_dir
 ln -sf $vsn_dir $cur_rel
+echo "==> app bin-path: $full_bin"
+
+env_file=$app_root/.env.prod
+if [ -f $env_file ]; then
+  echo "load env file: $env_file"
+  . $env_file
+fi
+echo Starting app at $(date -Iseconds)
 $full_bin daemon_iex
+
+echo Waiting app ready...
 timeout=60
 limit=$(( $timeout + 1 ))
 for i in $(seq 1 $limit); do
+  # echo waiting $i
   if [ $i -gt $timeout ]; then 
     echo "Waiting timeout, more than $timeout seconds at $(date -Iseconds)"
     exit 1
@@ -63,8 +74,7 @@ for i in $(seq 1 $limit); do
     sleep 1
   fi
 done
-echo "Congrats! Deploy app to ${vsn_dir} at $(date -Iseconds)"
-echo "==> bin-path: $full_bin"
+echo "Congrats! Deployed app to ${vsn_dir} at $(date -Iseconds)"
 
 ## clean old versions
 cd $app_root
@@ -77,4 +87,4 @@ if [ $total -gt $keep_limit ]; then
     rm -fr $app_root/$vsn.tar.gz
   done
 fi
-echo Keep ${keep_limit} versions from total=$total in app_root=$app_root
+echo Kept at most ${keep_limit} from total $total versions in app_root=$app_root
