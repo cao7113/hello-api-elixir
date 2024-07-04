@@ -65,6 +65,7 @@ jobs:
           export GIT_COMMIT_TIME=$(git log -1 --format="%ct")
           MIX_ENV=prod RELEASE_TAR=1 mix release
 
+      # https://github.com/softprops/action-gh-release
       - name: Make Github release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
@@ -89,7 +90,7 @@ jobs:
   #           vsn=${{ github.ref_name }}
   #           git_repo=${{ github.repository }}
 
-  #           app_root=~/hello
+  #           app_root=~/hello-api-elixir
   #           script_path=${app_root}/deploy.sh
 
   #           mkdir -p $app_root
@@ -102,4 +103,4 @@ jobs:
   #             echo "Use existed deploy-script: ${script_path}, manually delete it when need update"
   #           fi
 
-  #           $script_path $vsn $app_root bin/hello_api ${git_repo} 3
+  #           $script_path $vsn bin/hello_api ${git_repo} 3

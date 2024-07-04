@@ -7,30 +7,21 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 ## [v0.1.4](https://github.com/cao7113/hello-api-elixir/compare/v0.1.3...v0.1.4) (2024-07-03)
 
-
-
-
 ### Bug Fixes:
 
-* release-bar action missing env
+- release-bar action missing env
 
 ## [v0.1.3](https://github.com/cao7113/hello-api-elixir/compare/v0.1.2...v0.1.3) (2024-07-03)
 
-
-
-
 ### Bug Fixes:
 
-* try add release tar to github packages
+- try add release tar to github releases
 
 ## [v0.1.2](https://github.com/cao7113/hello-api-elixir/compare/v0.1.1...v0.1.2) (2024-07-03)
 
-
-
-
 ### Bug Fixes:
 
-* add fly deploy by github actions and fix text
+- add fly deploy by github actions and fix text
 
 ## [v0.1.1](https://github.com/cao7113/hello-api-elixir/compare/v0.1.0...v0.1.1) (2024-07-03)
 

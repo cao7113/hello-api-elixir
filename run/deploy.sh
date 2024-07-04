@@ -1,13 +1,21 @@
 #! /usr/bin/env sh
+set -e
 
-# ~/hello/deploy.sh v0.1.34 ~/hello bin/hello_api cao7113/hello-api-elixir 3
+if [ $# -lt 1 ]; then 
+  cat <<EOF
+Usage:
+  $0 VSN # BIN_PATH GIT_REPO KEEP_LIMIT"
+  eg. ~/hello-api-elixir/deploy.sh v0.1.0 # bin/hello_api cao7113/hello-api-elixir 3
+EOF
+  exit 1
+fi
 
 vsn=$1
-app_root=${2:-~/hello}
-bin_path=${3:-bin/hello_api}
-git_repo=${4:-cao7113/hello-api-elixir}
-keep_limit=${5:-3}
+bin_path=${2:-bin/hello_api}
+git_repo=${3:-cao7113/hello-api-elixir}
+keep_limit=${4:-3}
 
+app_root=$(realpath $(dirname $0))
 bin_name=$(basename $bin_path)
 bare_vsn=$(echo $vsn | sed 's/^v//')
 vsn_dir=${app_root}/$vsn

@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
+set -e
 
-app_root=~/hello
+app_root=${1:-_build/prod-orb}
+mkdir -p $app_root
 script_path=${app_root}/deploy.sh
 git_repo=cao7113/hello-api-elixir
 
@@ -11,8 +13,8 @@ if [ ! -e $script_path ]; then
   chmod +x $script_path
   echo "Setup deploy-script into ${script_path} from ${script_url}"
 else 
-  echo "Use existed deploy-script: ${script_path}, manually delete it when need update"
+  echo "Use existed deploy-script: ${script_path}, manually delete it if need update!!"
 fi
 
 echo "## Deploy as following"
-echo "$script_path v0.1.35 $app_root bin/hello_api cao7113/hello-api-elixir 3"
+echo "$script_path v0.0.0 # $app_root bin/hello_api cao7113/hello-api-elixir 3"
