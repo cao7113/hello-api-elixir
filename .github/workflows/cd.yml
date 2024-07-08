@@ -31,7 +31,7 @@ jobs:
           # https://github.com/cao7113/hello-api-elixir/settings/secrets/actions
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
-  push-to-registry:
+  push-dockerhub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     permissions:
