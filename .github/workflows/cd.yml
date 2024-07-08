@@ -68,6 +68,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      ## enable below??? https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub
       # - name: Generate artifact attestation
       #   uses: actions/attest-build-provenance@v1
       #   with:

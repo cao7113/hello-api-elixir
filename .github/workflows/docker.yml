@@ -1,0 +1,28 @@
+name: Docker Try
+on:
+  push:
+    branches: ["docker"]
+
+permissions:
+  contents: read
+
+jobs:
+  test-docker:
+    runs-on: ubuntu-latest
+    services:
+      api-server:
+        image: cao7113/hello-api-elixir
+        env:
+          MIX_ENV: prod
+        ports:
+          - 4000:4000
+
+    steps:
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+
+      - name: Ping api-server
+        run: |
+          sleep 3
+          curl http://localhost:4000/ping
+          curl http://localhost:4000
