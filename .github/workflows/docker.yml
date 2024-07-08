@@ -12,8 +12,6 @@ jobs:
     services:
       api-server:
         image: cao7113/hello-api-elixir
-        env:
-          MIX_ENV: prod
         ports:
           - 4000:4000
 
@@ -23,6 +21,6 @@ jobs:
 
       - name: Ping api-server
         run: |
-          sleep 3
+          sleep 1
           curl http://localhost:4000/ping
           curl http://localhost:4000
