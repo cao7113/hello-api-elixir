@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.5](https://github.com/cao7113/hello-api-elixir/compare/v0.1.4...v0.1.5) (2024-07-08)
+
+
+
+
+### Bug Fixes:
+
+* try push image to dockerhub
+
 ## [v0.1.4](https://github.com/cao7113/hello-api-elixir/compare/v0.1.3...v0.1.4) (2024-07-03)
 
 ### Bug Fixes:
