@@ -91,7 +91,6 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64,linux/arm64
           context: .
           file: ./Dockerfile
           push: true
@@ -110,6 +109,8 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+      ## todo simple image test
 
   release-tar:
     # strategy:
