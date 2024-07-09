@@ -40,15 +40,20 @@ tasks:
   orb-run: orb _build/orb-prod/current/bin/hello_api {{.CLI_ARGS}}
   orb-pid: task orb-run -- pid
   orb-sh: task orb-run -- remote
+  orb-stop: task orb-run -- stop
   # deploy a version from github vsn release, as: task orb-deploy -- v0.1.4 in orb env
   orb-deploy: orb _build/orb-prod/deploy.sh {{.CLI_ARGS}}
   orb-setup: orb run/setup.sh _build/orb-prod
   orb-setup-local: cp run/deploy.sh _build/orb-prod/
 
-  ## Docker env
-  dk-builder: docker pull hexpm/elixir:1.17.1-erlang-27.0-debian-bullseye-20240612-slim
-  dk-runner: docker pull debian:bullseye-20240612-slim
-  # dockerhub image: https://hub.docker.com/r/cao7113/hello-api-elixir
+  ## Docker
+  dk-pull-builder: docker pull hexpm/elixir:1.17.1-erlang-27.0-debian-bullseye-20240612-slim
+  dk-pull-runner: docker pull debian:bullseye-20240612-slim
+  # dockerhub images
+  # https://hub.docker.com/r/cao7113/hello-api-elixir
+  # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
+  dk-pull-ghcr: docker pull ghcr.io/cao7113/hello-api-elixir
+  dk-run: docker run --rm -itP ghcr.io/cao7113/hello-api-elixir
 
   # Init setup
   mk-hello: mix new hello-api-elixir --app hello_api --sup
