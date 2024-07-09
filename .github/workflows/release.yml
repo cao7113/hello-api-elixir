@@ -12,9 +12,14 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  check-ci:
+    name: Check CI
+    uses: .github/workflows/ci.yml
+
   fly-deploy:
     name: Deploy fly app
     runs-on: ubuntu-latest
+    needs: check-ci
     concurrency: deploy-group
     steps:
       - name: Checkout code
@@ -38,6 +43,7 @@ jobs:
   push-images:
     name: Push Docker image to Docker Hub and Github Packages
     runs-on: ubuntu-latest
+    needs: check-ci
     permissions:
       packages: write
       contents: read
@@ -97,6 +103,7 @@ jobs:
     #     otp: [27.x]
     #     elixir: [1.147.x]
     runs-on: ubuntu-latest
+    needs: check-ci
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
