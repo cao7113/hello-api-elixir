@@ -1,7 +1,8 @@
 name: Docker Try
 on:
   push:
-    branches: ["docker"]
+    branches:
+      - docker
   workflow_dispatch:
   workflow_call:
 
@@ -16,11 +17,11 @@ jobs:
         image: cao7113/hello-api-elixir
         ports:
           - 4000:4000
-      # Fix: unsupported media type application/vnd.oci.empty.v1+json
-      # use ghcr.io/cao7113/hello-api-elixir:v0.1.8 or ghcr.io/cao7113/hello-api-elixir:latest instead of ghcr.io/cao7113/hello-api-elixir:sha256-b3de0aa2c4d72189aeb6e36fe8377400e1f9e6f4fbc60270b3e05b2e3350462b
+
+      # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
+      # Fix: "unsupported media type application/vnd.oci.empty.v1+json"
+      # use ghcr.io/cao7113/hello-api-elixir:v0.1.8 instead of ghcr.io/cao7113/hello-api-elixir:sha256-b3de0aa2c4d72189aeb6e36fe8377400e1f9e6f4fbc60270b3e05b2e3350462b
       api-server2:
-        # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
-        # image: ghcr.io/cao7113/hello-api-elixir:v0.1.8
         image: ghcr.io/cao7113/hello-api-elixir
         ports:
           - 4002:4000
@@ -32,10 +33,14 @@ jobs:
       - name: Ping api-server
         run: |
           sleep 1
+          echo Ping api-server
           curl -sSL http://localhost:4000/ping
+          echo Ping api-server2
           curl -sSL http://localhost:4002/ping
 
       - name: Api build info
         run: |
+          echo api-server build info:
           curl -sSL http://localhost:4000 | jq
+          echo api-server2 build info:
           curl -sSL http://localhost:4002 | jq
