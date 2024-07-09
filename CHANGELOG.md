@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.13](https://github.com/cao7113/hello-api-elixir/compare/v0.1.12...v0.1.13) (2024-07-09)
+
+
+
+
+### Bug Fixes:
+
+* add image test when push images
+
 ## [v0.1.12](https://github.com/cao7113/hello-api-elixir/compare/v0.1.11...v0.1.12) (2024-07-09)
 
 
