@@ -18,7 +18,8 @@ jobs:
       # use ghcr.io/cao7113/hello-api-elixir:v0.1.8 or ghcr.io/cao7113/hello-api-elixir:latest instead of ghcr.io/cao7113/hello-api-elixir:sha256-b3de0aa2c4d72189aeb6e36fe8377400e1f9e6f4fbc60270b3e05b2e3350462b
       api-server2:
         # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
-        image: ghcr.io/cao7113/hello-api-elixir:v0.1.8
+        # image: ghcr.io/cao7113/hello-api-elixir:v0.1.8
+        image: ghcr.io/cao7113/hello-api-elixir
         ports:
           - 4002:4000
 
