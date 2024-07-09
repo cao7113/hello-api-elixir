@@ -14,7 +14,7 @@ env:
 jobs:
   check-ci:
     name: Check CI
-    uses: .github/workflows/ci.yml
+    uses: ./.github/workflows/ci.yml
 
   fly-deploy:
     name: Deploy fly app
