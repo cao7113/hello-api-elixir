@@ -16,6 +16,7 @@ jobs:
     name: Check CI
     uses: ./.github/workflows/ci.yml
 
+  # direct use ghcr or docker-hub image?
   fly-deploy:
     name: Deploy fly app
     runs-on: ubuntu-latest
@@ -52,9 +53,15 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-      - name: Set env
+
+      - name: Set Commit Env from git command
         run: |
-          export GIT_COMMIT_TIME=$(git log -1 --format="%ct")
+          echo GIT_COMMIT_TIME=$(git log -1 --format="%ct") >> $GITHUB_ENV
+          echo GIT_COMMIT_ID=$(git log -1 --format="%H") >> $GITHUB_ENV
+      - name: Inspect Commit Env
+        run: |
+          echo GIT_COMMIT_ID=$GIT_COMMIT_ID vs ${{ env.GIT_COMMIT_ID }} in env context
+          echo GIT_COMMIT_TIME=$GIT_COMMIT_TIME vs ${{ env.GIT_COMMIT_TIME }} in env context
 
       # https://github.com/docker/login-action
       - name: Log in to Docker Hub
@@ -84,6 +91,7 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
+          platforms: linux/amd64,linux/arm64
           context: .
           file: ./Dockerfile
           push: true
@@ -92,7 +100,7 @@ jobs:
           # https://github.com/docker/build-push-action?tab=readme-ov-file#customizing
           # GIT_COMMIT_TIME=$(git log -1 --format="%ct")
           build-args: |
-            GIT_COMMIT_ID=${{ github.sha }} 
+            GIT_COMMIT_ID=${{ github.sha }}
             GIT_COMMIT_TIME=${{ env.GIT_COMMIT_TIME }}
 
       # https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub
