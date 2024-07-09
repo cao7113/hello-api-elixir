@@ -36,10 +36,14 @@ cur_rel=$app_root/current
 full_bin=$cur_rel/$bin_path
 
 if [ -e $cur_rel ]; then
-  $full_bin stop 2>/dev/null || true
-  echo Stop old process in $cur_rel if need at $(date -Iseconds)
+  if $full_bin pid; then
+    echo "Try stop old process in current -> $(readlink -f $cur_rel)"
+    $full_bin stop
+    echo "Stop old process in $cur_rel if need at $(date -Iseconds)"
+  fi
+
   rm -f $cur_rel
-  echo Clean current-release old link from $cur_rel
+  echo "Clean old release link from current -> $(readlink -f $cur_rel)"
 fi
 
 echo Link new current-release to $vsn_dir
@@ -54,7 +58,7 @@ fi
 echo Starting app at $(date -Iseconds)
 $full_bin daemon_iex
 
-echo Waiting app ready...
+echo Waiting new app ready...
 timeout=60
 limit=$(( $timeout + 1 ))
 for i in $(seq 1 $limit); do
@@ -75,6 +79,8 @@ for i in $(seq 1 $limit); do
   fi
 done
 echo "Congrats! Deployed app to ${vsn_dir} at $(date -Iseconds)"
+echo
+echo "Try visit at http://ubox1.orb.local:4000"
 
 ## clean old versions
 cd $app_root

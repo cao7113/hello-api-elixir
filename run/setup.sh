@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-app_root=${1:-_build/prod-orb}
+app_root=${1:-_build/orb-prod}
 mkdir -p $app_root
 script_path=${app_root}/deploy.sh
 git_repo=cao7113/hello-api-elixir
