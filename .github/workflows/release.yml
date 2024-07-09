@@ -136,7 +136,7 @@ jobs:
       - name: Make Github release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
-        # todo: add runner.os & runner.arch info
+        # todo: add runner.os & runner.arch info in final tar filename
         with:
           files: _build/prod/*.tar.gz
 
