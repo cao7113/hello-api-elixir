@@ -14,6 +14,11 @@ jobs:
         image: cao7113/hello-api-elixir
         ports:
           - 4000:4000
+      api-server2:
+        # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
+        image: ghcr.io/cao7113/hello-api-elixir:sha256-b3de0aa2c4d72189aeb6e36fe8377400e1f9e6f4fbc60270b3e05b2e3350462b
+        ports:
+          - 4002:4000
 
     steps:
       # - name: Checkout code
@@ -23,6 +28,9 @@ jobs:
         run: |
           sleep 1
           curl -sSL http://localhost:4000/ping
+          curl -sSL http://localhost:4002/ping
 
       - name: Api build info
-        run: curl -sSL http://localhost:4000 | jq
+        run: |
+          curl -sSL http://localhost:4000 | jq
+          curl -sSL http://localhost:4002 | jq
