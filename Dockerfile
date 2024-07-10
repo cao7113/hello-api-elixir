@@ -58,8 +58,6 @@ COPY config/runtime.exs config/
 
 COPY rel rel
 RUN mix release
-# iex helpers
-COPY .iex.exs _build/${MIX_ENV}/rel/hello_api
 
 ###########################################################
 
@@ -93,6 +91,9 @@ EXPOSE ${PORT}
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/hello_api ./
 
 USER nobody
+
+# carry iex helpers to /app
+COPY .iex.exs .
 
 # If using an environment that doesn't automatically reap zombie processes, it is
 # advised to add an init process such as tini via `apt-get install`
