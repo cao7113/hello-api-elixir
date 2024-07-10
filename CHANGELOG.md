@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.15](https://github.com/cao7113/hello-api-elixir/compare/v0.1.14...v0.1.15) (2024-07-10)
+
+
+
+
+### Improvements:
+
+* config and .iex.exs copy in docker image
+
 ## [v0.1.14](https://github.com/cao7113/hello-api-elixir/compare/v0.1.13...v0.1.14) (2024-07-09)
 
 
