@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.16](https://github.com/cao7113/hello-api-elixir/compare/v0.1.15...v0.1.16) (2024-07-12)
+
+
+
+
+### Improvements:
+
+* upgrade elixir to 1.17.2 and add docker-compose
+
 ## [v0.1.15](https://github.com/cao7113/hello-api-elixir/compare/v0.1.14...v0.1.15) (2024-07-10)
 
 
