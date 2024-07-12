@@ -47,9 +47,6 @@ tasks:
   orb-setup-local: cp run/deploy.sh _build/orb-prod/
 
   ## Docker env
-  dk-pull-builder: docker pull hexpm/elixir:1.17.1-erlang-27.0-debian-bullseye-20240612-slim
-  dk-pull-runner: docker pull debian:bullseye-20240612-slim
-  # dockerhub images
   # https://hub.docker.com/r/cao7113/hello-api-elixir
   # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
   dk-pull-ghcr: docker pull ghcr.io/cao7113/hello-api-elixir
@@ -58,6 +55,18 @@ tasks:
   dk-ping: curl http://hello-api-elixir.orb.local | jq
   dk-sh: docker run --rm -it ghcr.io/cao7113/hello-api-elixir sh
   # cat /etc/os-release or cat /etc/debian_version
+
+  ## Get images
+  dk-pull-builder: docker pull hexpm/elixir:1.17.2-erlang-27.0-debian-bullseye-20240701-slim
+  dk-pull-runner: docker pull debian:bullseye-20240701-slim
+  # https://github.com/OpenLinkOS/registry-mirrors
+  get-images: |
+    docker pull docker.linkos.org/hexpm/elixir:1.17.2-erlang-27.0-debian-bullseye-20240701-slim
+    docker tag docker.linkos.org/hexpm/elixir:1.17.2-erlang-27.0-debian-bullseye-20240701-slim hexpm/elixir:1.17.2-erlang-27.0-debian-bullseye-20240701-slim
+    # docker rmi docker.linkos.org/hexpm/elixir:1.17.2-erlang-27.0-debian-bullseye-20240701-slim
+
+    docker pull docker.linkos.org/library/debian:bullseye-20240701-slim
+    docker tag docker.linkos.org/library/debian:bullseye-20240701-slim debian:bullseye-20240701-slim
 
   # Init setup
   mk-hello: mix new hello-api-elixir --app hello_api --sup

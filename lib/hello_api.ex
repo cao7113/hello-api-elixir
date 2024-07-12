@@ -31,5 +31,10 @@ defmodule HelloApi do
   def parse_commit_time(""), do: nil
 
   def parse_commit_time(tm_str),
-    do: tm_str |> String.trim() |> String.to_integer() |> DateTime.from_unix!() |> to_string()
+    do:
+      tm_str
+      |> String.trim()
+      |> String.to_integer()
+      |> DateTime.from_unix!()
+      |> to_string()
 end
