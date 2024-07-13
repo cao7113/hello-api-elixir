@@ -5,6 +5,17 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.18](https://github.com/cao7113/hello-api-elixir/compare/v0.1.17...v0.1.18) (2024-07-13)
+
+
+
+
+### Bug Fixes:
+
+* typo
+
+* text
+
 ## [v0.1.17](https://github.com/cao7113/hello-api-elixir/compare/v0.1.16...v0.1.17) (2024-07-13)
 
 
