@@ -1,4 +1,4 @@
-name: Docker Try
+name: Docker Compose Test
 on:
   push:
     branches:
