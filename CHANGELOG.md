@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.17](https://github.com/cao7113/hello-api-elixir/compare/v0.1.16...v0.1.17) (2024-07-13)
+
+
+
+
+### Improvements:
+
+* deploy fly app after image test and reuse ghcr image
+
 ## [v0.1.16](https://github.com/cao7113/hello-api-elixir/compare/v0.1.15...v0.1.16) (2024-07-12)
 
 
