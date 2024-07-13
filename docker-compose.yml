@@ -2,8 +2,8 @@
 services:      
   # https://github.com/cao7113/hello-phx/pkgs/container/hello-api-elixir
   api:
-    # image: ghcr.io/cao7113/hello-api-elixir
-    build: .
+    image: ghcr.io/cao7113/hello-api-elixir
+    # build: .
     # environment:
     #   MIX_ENV: "prod"
     # https://docs.docker.com/compose/compose-file/05-services/#healthcheck
@@ -12,7 +12,7 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 30s
       start_interval: 5s
 
   # http://hello-api-elixir-api-1.orb.local/
@@ -20,33 +20,30 @@ services:
   curl:
     image: curlimages/curl:8.8.0
     depends_on:
-      - api
+      api:
+        condition: service_healthy
     command: >
       sh -c "
-        sleep 2
+        # echo
+        # ping -c 3 api
+        echo
         echo ping api
-        curl http://api/ping
+        curl -sSL http://api:4000/ping
         echo
-        echo ping api at port 4000
-        curl http://api:4000/ping
-        echo
-        ping -c 3 api
-        ping -q api
+        echo get build info
+        curl -sSL http://api:4000/
       "
 
-  tool:
-    image: busybox
-    depends_on:
-      - api
-    command: >
-      sh -c "
-        sleep 2
-        echo ping api
-        wget -qO- http://api/ping
-        echo
-        echo ping api at port 4000
-        wget -qO- http://api:4000/ping
-        echo
-        ping -c 3 api
-        ping -q api
-      "
+  # tool:
+  #   image: busybox
+  #   depends_on:
+  #     api:
+  #       condition: service_healthy
+  #   command: >
+  #     sh -c "
+  #       # echo
+  #       # ping -c 3 api
+  #       echo
+  #       echo ping api at port 4000
+  #       wget -qO- http://api:4000/ping
+  #     "

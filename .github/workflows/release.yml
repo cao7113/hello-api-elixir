@@ -16,31 +16,6 @@ jobs:
     name: Check CI
     uses: ./.github/workflows/ci.yml
 
-  # direct use ghcr or docker-hub image?
-  fly-deploy:
-    name: Deploy fly app
-    runs-on: ubuntu-latest
-    needs: check-ci
-    concurrency: deploy-group
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # https://github.com/superfly/flyctl-actions
-      # https://github.com/marketplace/actions/github-action-for-flyctl
-      - name: Setup flyctl
-        uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: Deploy app
-        run: flyctl deploy --remote-only --build-arg GIT_COMMIT_ID=$(git log -1 --format="%H") --build-arg GIT_COMMIT_TIME=$(git log -1 --format="%ct")
-        env:
-          # https://github.com/superfly/flyctl-actions?tab=readme-ov-file#secrets
-          # https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/#speed-run-your-way-to-continuous-deployment
-          # gen cmd: fly tokens create deploy -x 999999h
-          # set in Github Settings -> Secrets -> Actions -> Repository secrets
-          # https://github.com/cao7113/hello-api-elixir/settings/secrets/actions
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-
   push-images:
     name: Push Docker image to Docker Hub and Github Packages
     runs-on: ubuntu-latest
@@ -114,6 +89,31 @@ jobs:
     name: Test latest docker images
     needs: push-images
     uses: ./.github/workflows/docker.yml
+
+  # direct use ghcr or docker-hub image?
+  fly-deploy:
+    name: Deploy fly app
+    runs-on: ubuntu-latest
+    needs: test-docker-images
+    concurrency: deploy-group
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # https://github.com/superfly/flyctl-actions
+      # https://github.com/marketplace/actions/github-action-for-flyctl
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy fly app
+        run: flyctl deploy --image ghcr.io/${{ github.repository }}:${{ github.ref_name }} --debug --verbose
+        env:
+          # https://github.com/superfly/flyctl-actions?tab=readme-ov-file#secrets
+          # https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/#speed-run-your-way-to-continuous-deployment
+          # https://github.com/cao7113/hello-phx/settings/secrets/actions
+          # gen cmd: fly tokens create deploy -x 999999h
+          # set in Github Settings -> Secrets -> Actions -> Repository secrets
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
   release-tar:
     # strategy:
