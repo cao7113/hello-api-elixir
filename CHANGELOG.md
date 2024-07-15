@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.19](https://github.com/cao7113/hello-api-elixir/compare/v0.1.18...v0.1.19) (2024-07-15)
+
+
+
+
+### Improvements:
+
+* add curl and ping to image
+
 ## [v0.1.18](https://github.com/cao7113/hello-api-elixir/compare/v0.1.17...v0.1.18) (2024-07-13)
 
 
