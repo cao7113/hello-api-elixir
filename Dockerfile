@@ -69,7 +69,7 @@ FROM ${RUNNER_IMAGE} as runner
 #   apt-get install -y libstdc++6 openssl libncurses5 locales ca-certificates \
 #   && apt-get clean && rm -f /var/lib/apt/lists/*_*
 RUN apt-get update -y && \
-  apt-get install -y locales \
+  apt-get install -y locales curl iputils-ping \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
@@ -84,9 +84,6 @@ RUN chown nobody /app
 # set runner ENV
 ENV MIX_ENV="prod"
 ENV PORT="4000"
-# Appended by flyctl https://fly.io/docs/elixir/getting-started/#important-ipv6-settings
-ENV ECTO_IPV6 true
-ENV ERL_AFLAGS "-proto_dist inet6_tcp"
 EXPOSE ${PORT}
 
 # Only copy the final release from the build stage
