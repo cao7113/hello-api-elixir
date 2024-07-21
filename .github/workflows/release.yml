@@ -90,7 +90,6 @@ jobs:
     needs: push-images
     uses: ./.github/workflows/docker.yml
 
-  # direct use ghcr or docker-hub image?
   fly-deploy:
     name: Deploy fly app
     runs-on: ubuntu-latest
