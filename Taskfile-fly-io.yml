@@ -23,6 +23,7 @@ tasks:
   # create new app and fly.toml but not deploy
   new-app: fly launch --no-deploy
   vm: fly machine ls
+  # vm512: fly machine update e784079b449483 --vm-memory 512
   ls: fly app ls
   ping: fly app open /ping
   # plain env and secrets

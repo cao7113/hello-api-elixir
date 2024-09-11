@@ -28,6 +28,15 @@ defmodule HelloApi.Router do
     send_resp(conn, 200, "Pong")
   end
 
+  get "/api/ping" do
+    conn
+    |> put_resp_header("location", "/ping")
+    |> send_resp(
+      conn.status || 302,
+      "<html><body>You are being <a href=\"/ping\">redirected</a>.</body></html>"
+    )
+  end
+
   get "/hello" do
     send_resp(conn, 200, "World")
   end

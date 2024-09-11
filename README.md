@@ -1,4 +1,4 @@
-# HelloApi
+# HelloApi - Simple API based on bandit 
 
 [![CI](https://github.com/cao7113/hello-api-elixir/actions/workflows/ci.yml/badge.svg)](https://github.com/cao7113/hello-api-elixir/actions/workflows/ci.yml)
 [![Release](https://github.com/cao7113/hello-api-elixir/actions/workflows/release.yml/badge.svg)](https://github.com/cao7113/hello-api-elixir/actions/workflows/release.yml)

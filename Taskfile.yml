@@ -50,10 +50,11 @@ tasks:
   # https://hub.docker.com/r/cao7113/hello-api-elixir
   # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
   dk-pull-ghcr: docker pull ghcr.io/cao7113/hello-api-elixir
-  dk-run: docker run --name hello-api-elixir --rm -it -p 4000:4000 ghcr.io/cao7113/hello-api-elixir bin/hello_api start_iex
+  dk-build: docker build -t hello-api-elixir .
+  dk-run: docker run --name hello-api-elixir --rm -it -p 4000:4000 hello-api-elixir bin/hello_api start_iex
   # http://hello-api-elixir.orb.local:4000 or http://localhost:4000
   dk-ping: curl http://hello-api-elixir.orb.local | jq
-  dk-sh: docker run --rm -it ghcr.io/cao7113/hello-api-elixir sh
+  dk-sh: docker run --rm -it hello-api-elixir sh
   # cat /etc/os-release or cat /etc/debian_version
 
   ## Get images
