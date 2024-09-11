@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.2.0](https://github.com/cao7113/hello-api-elixir/compare/v0.1.19...v0.2.0) (2024-09-11)
+
+
+
+
+### Features:
+
+* add api ping redirect
+
 ## [v0.1.19](https://github.com/cao7113/hello-api-elixir/compare/v0.1.18...v0.1.19) (2024-07-15)
 
 

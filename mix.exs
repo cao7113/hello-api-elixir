@@ -3,7 +3,7 @@ defmodule HelloApi.MixProject do
 
   # following https://github.com/zachdaniel/git_ops/blob/master/mix.exs
   @source_url "https://github.com/cao7113/hello-api-elixir"
-  @version "0.1.19"
+  @version "0.2.0"
 
   # https://hexdocs.pm/mix/Mix.Project.html#module-configuration
   def project do
