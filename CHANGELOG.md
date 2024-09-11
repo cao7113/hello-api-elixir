@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.2.1](https://github.com/cao7113/hello-api-elixir/compare/v0.2.0...v0.2.1) (2024-09-11)
+
+
+
+
+### Improvements:
+
+* inspect request headers
+
 ## [v0.2.0](https://github.com/cao7113/hello-api-elixir/compare/v0.1.19...v0.2.0) (2024-09-11)
 
 
