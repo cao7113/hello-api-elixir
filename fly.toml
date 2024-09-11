@@ -16,6 +16,7 @@ ERL_AFLAGS = '-proto_dist inet6_tcp'
 
 [http_service]
 internal_port = 8080
+# allow http and https request only for experimental
 # force_https = true
 auto_stop_machines = true
 auto_start_machines = true

@@ -45,6 +45,32 @@ defmodule HelloApi.Router do
     send_resp(conn, 200, "Hello user##{conn.params["id"]}")
   end
 
+  get "/inspect" do
+    # proto = get_req_header(conn, "X-Forwarded-Proto")
+    %Plug.Conn{req_headers: headers} = conn
+
+    conn
+    |> put_resp_content_type("text/html", "utf-8")
+    |> send_resp(
+      200,
+      EEx.eval_string(
+        """
+        <html><body>
+        <h1>Request Headers(on app)</h1>
+        <ul>
+        <%= for {k, v} <- headers do %>
+        <li>
+        <%=k%>: <%=v|>inspect%>
+        </li>
+        <%end%>
+        </ul>
+        </body></html>
+        """,
+        headers: headers
+      )
+    )
+  end
+
   # Fallback handler when there was no match
   match _ do
     send_resp(conn, 404, "Oops...")
