@@ -21,7 +21,7 @@ defmodule HelloApi.Router do
   get "/" do
     conn
     |> put_resp_header("content-type", "application/json")
-    |> send_resp(200, HelloApi.build_info() |> Jsoner.encode!())
+    |> send_resp(200, HelloApi.build_info() |> JSON.encode!())
   end
 
   get "/ping" do
@@ -33,7 +33,11 @@ defmodule HelloApi.Router do
     |> put_resp_header("location", "/ping")
     |> send_resp(
       conn.status || 302,
-      "<html><body>You are being <a href=\"/ping\">redirected</a>.</body></html>"
+      """
+      <html><body>
+        You are being <a href=\"/ping\">redirected</a>.
+      </body></html>
+      """
     )
   end
 
@@ -56,14 +60,14 @@ defmodule HelloApi.Router do
       EEx.eval_string(
         """
         <html><body>
-        <h1>Request Headers(on app)</h1>
-        <ul>
-        <%= for {k, v} <- headers do %>
-        <li>
-        <%=k%>: <%=v|>inspect%>
-        </li>
-        <%end%>
-        </ul>
+          <h1>Request Headers(on app)</h1>
+          <ul>
+            <%= for {k, v} <- headers do %>
+            <li>
+              <%=k%>: <%=v|>inspect%>
+            </li>
+            <%end%>
+          </ul>
         </body></html>
         """,
         headers: headers

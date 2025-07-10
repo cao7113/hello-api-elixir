@@ -10,7 +10,7 @@ defmodule HelloApi.MixProject do
     [
       app: :hello_api,
       version: @version,
-      elixir: "~> 1.17",
+      elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       source_url: @source_url,
@@ -38,8 +38,8 @@ defmodule HelloApi.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:bandit, "~> 1.5"},
-      {:git_ops, "~> 2.6", only: [:dev], runtime: false}
+      {:bandit, "~> 1.7"},
+      {:git_ops, "~> 2.8", only: [:dev], runtime: false}
     ]
   end
 

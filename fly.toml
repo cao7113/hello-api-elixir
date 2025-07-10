@@ -11,8 +11,8 @@ primary_region = 'nrt'
 [env]
 PORT = '8080'
 # https://fly.io/docs/elixir/getting-started/#important-ipv6-settings
-# ECTO_IPV6 = 'true'
 ERL_AFLAGS = '-proto_dist inet6_tcp'
+# ECTO_IPV6 = 'true'
 
 [http_service]
 internal_port = 8080

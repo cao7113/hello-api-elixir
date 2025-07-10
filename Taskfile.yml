@@ -10,7 +10,6 @@ includes:
 
 tasks:
   default: mix test --no-start
-
   sh: iex -S mix run --no-start
   run: iex -S mix run
   # iex -S mix run --no-halt --detached
