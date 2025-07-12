@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.2.2](https://github.com/cao7113/hello-api-elixir/compare/v0.2.1...v0.2.2) (2025-07-12)
+
+
+
+
+### Bug Fixes:
+
+* upgrade elixir version by Ryn Cao
+
 ## [v0.2.1](https://github.com/cao7113/hello-api-elixir/compare/v0.2.0...v0.2.1) (2024-09-11)
 
 
