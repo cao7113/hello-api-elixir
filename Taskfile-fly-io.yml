@@ -9,10 +9,9 @@ vars:
 
 tasks:
   default: echo fly on app {{.FLY_APP_NAME}}
-
   # IEx require mem: 512m+ on fly.io
-  sh: fly ssh console --pty -C "/app/bin/{{.APP}} remote"
-  ssh: fly ssh console
+  iex: fly ssh console --pty -C "/app/bin/{{.APP}} remote"
+  sh: fly ssh console
   st: fly status
   # deploy new app version
   up: fly deploy --build-arg GIT_COMMIT_ID=$(git log -1 --format="%H") --build-arg GIT_COMMIT_TIME=$(git log -1 --format="%ct")
@@ -21,7 +20,7 @@ tasks:
   open: fly open
   launch: fly launch --debug --verbose # --now
   # create new app and fly.toml but not deploy
-  new-app: fly launch --no-deploy
+  # fly launch --no-deploy
   vm: fly machine ls
   # vm512: fly machine update e784079b449483 --vm-memory 512
   ls: fly app ls
@@ -31,6 +30,7 @@ tasks:
   sec: fly secrets ls
   show: fly scale show
   # fly scale count 2
+  s1: fly scale count 1 --yes
   # sets up a root certificate for your account and then issues a certificate.
   ssh-agent: fly ssh issue --agent
   # Opening https://fly.io/apps/hello-phx-up

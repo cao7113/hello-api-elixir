@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for hello-api-elixir on 2024-07-02T11:32:30+08:00
+# fly.toml app configuration file generated for hello-api-elixir on 2025-07-12T15:40:51+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,21 +9,25 @@ primary_region = 'nrt'
 [build]
 
 [env]
-PORT = '8080'
-# https://fly.io/docs/elixir/getting-started/#important-ipv6-settings
+RELEASE_DISTRIBUTION = 'name'
+# use 6PN private ipv6 address
+RELEASE_NODE = 'hi@hello-api-elixir.internal'
+# SHOULD set with fly config
+RELEASE_COOKIE = 'hello'
+# use ipv6
 ERL_AFLAGS = '-proto_dist inet6_tcp'
-# ECTO_IPV6 = 'true'
+PORT = '8080'
 
 [http_service]
 internal_port = 8080
-# allow http and https request only for experimental
-# force_https = true
-auto_stop_machines = true
+auto_stop_machines = 'stop'
 auto_start_machines = true
 min_machines_running = 0
 processes = ['app']
 
 [[vm]]
-memory = '256mb'
+# size = 'shared-cpu-1x'
+# iex require 512m+
+memory = "512mb"
 cpu_kind = 'shared'
 cpus = 1

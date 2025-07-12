@@ -17,27 +17,30 @@ Mix.install([
 } |> Kino.Tree.new
 ```
 
+## Access fly-io app
+
+hi@hello-api-elixir.internal node
+
+<!-- livebook:{"attrs":"eyJhc3NpZ25fdG8iOiIiLCJjb2RlIjoiOm9rIiwiY29va2llX3NvdXJjZSI6InRleHQiLCJjb29raWVfdGV4dCI6ImhlbGxvIiwibm9kZV9zb3VyY2UiOiJ0ZXh0Iiwibm9kZV90ZXh0IjoiaGlAaGVsbG8tYXBpLWVsaXhpci5pbnRlcm5hbCJ9","chunks":null,"kind":"Elixir.Kino.RemoteExecutionCell","livebook_object":"smart_cell"} -->
+
+```elixir
+require Kino.RPC
+node = :"hi@hello-api-elixir.internal"
+Node.set_cookie(node, :hello)
+Kino.RPC.eval_string(node, ~S":ok", file: __ENV__.file)
+```
+
 ## Remote execution in orb-container
 
 Access node in orb container with `hi@hello-api-elixir.orb.local`
 
-<!-- livebook:{"attrs":"eyJhc3NpZ25fdG8iOiIiLCJjb2RlIjoiJXtcbiAgcmVsZWFzZTogSGVsbG9BcGkucmVsZWFzZV9pbmZvLFxuICBidWlsZDogSGVsbG9BcGkuYnVpbGRfaW5mbygpXG59IiwiY29va2llX3NvdXJjZSI6InRleHQiLCJjb29raWVfdGV4dCI6ImhlbGxvIiwibm9kZV9zb3VyY2UiOiJ0ZXh0Iiwibm9kZV90ZXh0IjoiaGlAaGVsbG8tYXBpLWVsaXhpci5vcmIubG9jYWwifQ","chunks":null,"kind":"Elixir.Kino.RemoteExecutionCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":"eyJhc3NpZ25fdG8iOiIiLCJjb2RlIjoiSGVsbG9BcGkuaW5mbyIsImNvb2tpZV9zb3VyY2UiOiJ0ZXh0IiwiY29va2llX3RleHQiOiJoZWxsbyIsIm5vZGVfc291cmNlIjoidGV4dCIsIm5vZGVfdGV4dCI6ImhpQGhlbGxvLWFwaS1lbGl4aXIub3JiLmxvY2FsIn0","chunks":null,"kind":"Elixir.Kino.RemoteExecutionCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 require Kino.RPC
 node = :"hi@hello-api-elixir.orb.local"
 Node.set_cookie(node, :hello)
-
-Kino.RPC.eval_string(
-  node,
-  ~S"""
-  %{
-    release: HelloApi.release_info,
-    build: HelloApi.build_info()
-  }
-  """,
-  file: __ENV__.file
-)
+Kino.RPC.eval_string(node, ~S"HelloApi.info", file: __ENV__.file)
 ```
 
 ## API request

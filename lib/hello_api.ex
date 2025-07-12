@@ -8,6 +8,13 @@ defmodule HelloApi do
   def build_mode, do: Application.get_env(app(), :build_mode)
   def build_time, do: Application.get_env(app(), :build_time) |> to_string
 
+  def info do
+    %{
+      build: build_info(),
+      release_env: release_info()
+    }
+  end
+
   def build_info do
     %{
       app: app(),
