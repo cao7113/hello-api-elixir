@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.2.4](https://github.com/cao7113/hello-api-elixir/compare/v0.2.3...v0.2.4) (2025-07-12)
+
+
+
+
+### Bug Fixes:
+
+* enable github ci auto-deploy by Ryn Cao
+
 ## [v0.2.3](https://github.com/cao7113/hello-api-elixir/compare/v0.2.2...v0.2.3) (2025-07-12)
 
 
