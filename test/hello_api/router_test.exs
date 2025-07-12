@@ -5,7 +5,8 @@ defmodule HelloApiTest.Router do
   # This makes the conn object avaiable in the scope of the tests,
   # which can be used to make the HTTP request
   # https://hexdocs.pm/plug/Plug.Test.html
-  use Plug.Test
+  # use Plug.Test
+  import Plug.Test
 
   # We call the Plug init/1 function with the options then store
   # returned options in a Module attribute opts.
