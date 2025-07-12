@@ -31,3 +31,4 @@ tmp
 
 **/.elixir_ls
 fly.toml
+Taskfile.yml

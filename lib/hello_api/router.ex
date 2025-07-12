@@ -3,7 +3,6 @@ defmodule HelloApi.Router do
   use Plug.Router
 
   plug(Plug.Logger)
-
   plug(:match)
 
   # # Once there is a match, parse the response body if the content-type

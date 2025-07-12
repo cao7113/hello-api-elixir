@@ -1,8 +1,6 @@
 # https://taskfile.dev
 version: "3"
-
 includes:
-  # fly related tasks
   fly-io:
     taskfile: ./Taskfile-fly-io.yml
     aliases: [f, fly]
@@ -12,49 +10,79 @@ tasks:
   default: mix test --no-start
   sh: iex -S mix run --no-start
   run: iex -S mix run
-  # iex -S mix run --no-halt --detached
+  rund: iex -S mix run --no-halt --detached
 
   up: mix bump patch && git push origin main --tag
-
-  prel: MIX_ENV=prod mix release --overwrite
-  prel-tar: MIX_ENV=prod RELEASE_TAR=1 mix release --overwrite
-  prun: _build/prod/rel/hello_api/bin/hello_api start_iex
-  redo-deps:
-    cmds:
-      - |
-        mix deps.unlock --all && mix deps.clean --all && mix deps.get
+  deps.up: mix deps.unlock --all && mix deps.clean --all && mix deps.get
 
   get-info: curl -v http://localhost:4000 | jq
   get-user: curl -s http://localhost:4000/users/123
 
   ## Git ops
   cmt: mix git_ops.release --yes && git push --follow-tags
-  app-info: mix git_ops.project_info
-  init-release: mix git_ops.release --initial
+  ops.info: mix git_ops.project_info
+  ops.rel.init: mix git_ops.release --initial
+
+  ## Release test
+  mix.rel:
+    env:
+      RELEASE_NODE: "hello"
+      RELEASE_COOKIE: "cookie-value-set-RELEASE_COOKIE-env-from-Taskfile.yml"
+    cmds:
+      - |
+        mix release --overwrite
+        _build/dev/rel/hello_api/bin/hello_api eval "IO.inspect HelloApi.release_info"
+
+  dev.rel:
+    env:
+      RELEASE_DISTRIBUTION: "name"
+      RELEASE_NODE: "hello-api@127.0.0.1"
+      RELEASE_COOKIE: "test"
+    cmds:
+      - |
+        _build/dev/rel/hello_api/bin/hello_api start_iex
+
+  prod.rel: MIX_ENV=prod mix release --overwrite
+  prod.rel.tar: MIX_ENV=prod RELEASE_TAR=1 mix release --overwrite
+  prod.rel.run: |
+    task prod.rel
+    _build/prod/rel/hello_api/bin/hello_api start_iex
+
+  ## Docker
+  dk.build: docker build -t hello-api-elixir .
+  dk.run: |
+    # task dk.build
+    # http://hello-api-elixir.orb.local
+    docker run --name hello-api-elixir --rm -it -p 4000:4010 \
+      -e "RELEASE_DISTRIBUTION=name" \
+      -e "RELEASE_NODE=hi@hello-api-elixir.orb.local" \
+      -e "RELEASE_COOKIE=hello" \
+      hello-api-elixir bin/hello_api start_iex
+
+  dk.sh: docker run --rm -it hello-api-elixir sh
+  dk.iex: docker exec -it hello-api-elixir bin/hello_api remote
+  dk.in: docker exec -it hello-api-elixir sh
+  # docker run --rm -it hello-api-elixir bin/hello_api
+  dk.ping: curl http://hello-api-elixir.orb.local | jq
+  dk.down: docker stop hello-api-elixir
 
   ## Local prod env in Orbstack
   # run `orb` into default ubuntu box(ubox1), then do belows in current project root:
-  orb-home: curl http://ubox1.orb.local:4000/ | jq
-  orb-ping: curl http://ubox1.orb.local:4000/ping
-  orb-run: orb _build/orb-prod/current/bin/hello_api {{.CLI_ARGS}}
-  orb-pid: task orb-run -- pid
-  orb-sh: task orb-run -- remote
-  orb-stop: task orb-run -- stop
+  orb.home: curl http://hello-api-elixir.orb.local:4000/ | jq
+  orb.ping: curl http://hello-api-elixir.orb.local:4000/ping
+  orb.run: orb _build/orb-prod/current/bin/hello_api {{.CLI_ARGS}}
+  orb.pid: task orb-run -- pid
+  orb.sh: task orb-run -- remote
+  orb.stop: task orb-run -- stop
   # deploy a version from github vsn release, as: task orb-deploy -- v0.1.4 in orb env
-  orb-deploy: orb _build/orb-prod/deploy.sh {{.CLI_ARGS}}
-  orb-setup: orb run/setup.sh _build/orb-prod
-  orb-setup-local: cp run/deploy.sh _build/orb-prod/
+  orb.deploy: orb _build/orb-prod/deploy.sh {{.CLI_ARGS}}
+  orb.setup: orb run/setup.sh _build/orb-prod
+  orb.setup.local: cp run/deploy.sh _build/orb-prod/
 
-  ## Docker env
+  # cat /etc/os-release or cat /etc/debian_version
   # https://hub.docker.com/r/cao7113/hello-api-elixir
   # https://github.com/cao7113/hello-api-elixir/pkgs/container/hello-api-elixir
-  dk-pull-ghcr: docker pull ghcr.io/cao7113/hello-api-elixir
-  dk-build: docker build -t hello-api-elixir .
-  dk-run: docker run --name hello-api-elixir --rm -it -p 4000:4000 hello-api-elixir bin/hello_api start_iex
-  # http://hello-api-elixir.orb.local:4000 or http://localhost:4000
-  dk-ping: curl http://hello-api-elixir.orb.local | jq
-  dk-sh: docker run --rm -it hello-api-elixir sh
-  # cat /etc/os-release or cat /etc/debian_version
+  ghcr.pull: docker pull ghcr.io/cao7113/hello-api-elixir
 
   ## Get images
   dk-pull-builder: docker pull hexpm/elixir:1.17.2-erlang-27.0-debian-bullseye-20240701-slim

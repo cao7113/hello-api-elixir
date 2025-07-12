@@ -1,0 +1,61 @@
+# Hello API notes
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.16.0"},
+  {:merquery, "~> 0.3.0"}
+])
+```
+
+## Node info
+
+```elixir
+%{
+  node: Node.self(),
+  cookie: Node.get_cookie(),
+  nodes: Node.list()
+} |> Kino.Tree.new
+```
+
+## Remote execution in orb-container
+
+Access node in orb container with `hi@hello-api-elixir.orb.local`
+
+<!-- livebook:{"attrs":"eyJhc3NpZ25fdG8iOiIiLCJjb2RlIjoiJXtcbiAgcmVsZWFzZTogSGVsbG9BcGkucmVsZWFzZV9pbmZvLFxuICBidWlsZDogSGVsbG9BcGkuYnVpbGRfaW5mbygpXG59IiwiY29va2llX3NvdXJjZSI6InRleHQiLCJjb29raWVfdGV4dCI6ImhlbGxvIiwibm9kZV9zb3VyY2UiOiJ0ZXh0Iiwibm9kZV90ZXh0IjoiaGlAaGVsbG8tYXBpLWVsaXhpci5vcmIubG9jYWwifQ","chunks":null,"kind":"Elixir.Kino.RemoteExecutionCell","livebook_object":"smart_cell"} -->
+
+```elixir
+require Kino.RPC
+node = :"hi@hello-api-elixir.orb.local"
+Node.set_cookie(node, :hello)
+
+Kino.RPC.eval_string(
+  node,
+  ~S"""
+  %{
+    release: HelloApi.release_info,
+    build: HelloApi.build_info()
+  }
+  """,
+  file: __ENV__.file
+)
+```
+
+## API request
+
+<!-- livebook:{"attrs":"eyJxdWVyaWVzIjpbeyJhdXRoIjp7InNjaGVtZSI6Im5vbmUiLCJ0eXBlIjowLCJ2YWx1ZSI6IiJ9LCJib2R5Ijp7ImNvbnRlbnRUeXBlIjoibm9uZSIsImZvcm0iOltdLCJyYXciOiIifSwiaGVhZGVycyI6W10sIm9wdGlvbnMiOnsiY29udGVudFR5cGUiOiJlbGl4aXIiLCJyYXciOiIifSwicGFyYW1zIjpbXSwicGx1Z2lucyI6W3siYWN0aXZlIjpmYWxzZSwiZGVzY3JpcHRpb24iOiJBIGNvbGxlY3Rpb24gb2Ygc3RlcHMsIHVzYWJsZSB3aXRoIFJlcS4iLCJuYW1lIjoiQ3VybFJlcS5QbHVnaW4iLCJ2ZXJzaW9uIjpudWxsfV0sInJlcXVlc3RfdHlwZSI6ImdldCIsInN0ZXBzIjp7ImVycm9yX3N0ZXBzIjpbeyJhY3RpdmUiOnRydWUsImRvYyI6IlJldHJpZXMgYSByZXF1ZXN0IGluIGZhY2Ugb2YgZXJyb3JzLiIsIm5hbWUiOiJyZXRyeSJ9XSwicmVxdWVzdF9zdGVwcyI6W3siYWN0aXZlIjp0cnVlLCJkb2MiOiJTZXRzIHRoZSB1c2VyLWFnZW50IGhlYWRlci4iLCJuYW1lIjoicHV0X3VzZXJfYWdlbnQifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiQXNrcyB0aGUgc2VydmVyIHRvIHJldHVybiBjb21wcmVzc2VkIHJlc3BvbnNlLiIsIm5hbWUiOiJjb21wcmVzc2VkIn0seyJhY3RpdmUiOnRydWUsImRvYyI6IkVuY29kZXMgdGhlIHJlcXVlc3QgYm9keS4iLCJuYW1lIjoiZW5jb2RlX2JvZHkifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiU2V0cyBiYXNlIFVSTCBmb3IgYWxsIHJlcXVlc3RzLiIsIm5hbWUiOiJwdXRfYmFzZV91cmwifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiU2V0cyByZXF1ZXN0IGF1dGhlbnRpY2F0aW9uLiIsIm5hbWUiOiJhdXRoIn0seyJhY3RpdmUiOnRydWUsImRvYyI6IkFkZHMgcGFyYW1zIHRvIHJlcXVlc3QgcXVlcnkgc3RyaW5nLiIsIm5hbWUiOiJwdXRfcGFyYW1zIn0seyJhY3RpdmUiOnRydWUsImRvYyI6IlVzZXMgYSB0ZW1wbGF0ZWQgcmVxdWVzdCBwYXRoLiIsIm5hbWUiOiJwdXRfcGF0aF9wYXJhbXMifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiU2V0cyB0aGUgXCJSYW5nZVwiIHJlcXVlc3QgaGVhZGVyLiIsIm5hbWUiOiJwdXRfcmFuZ2UifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiUGVyZm9ybXMgSFRUUCBjYWNoaW5nIHVzaW5nIGBpZi1tb2RpZmllZC1zaW5jZWAgaGVhZGVyLiIsIm5hbWUiOiJjYWNoZSJ9LHsiYWN0aXZlIjp0cnVlLCJkb2MiOiJTZXRzIGFkYXB0ZXIgdG8gYHJ1bl9wbHVnLzFgLiIsIm5hbWUiOiJwdXRfcGx1ZyJ9LHsiYWN0aXZlIjp0cnVlLCJkb2MiOiJDb21wcmVzc2VzIHRoZSByZXF1ZXN0IGJvZHkuIiwibmFtZSI6ImNvbXByZXNzX2JvZHkifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiU2V0cyBleHBlY3RlZCByZXNwb25zZSBib2R5IGNoZWNrc3VtLiIsIm5hbWUiOiJjaGVja3N1bSJ9LHsiYWN0aXZlIjp0cnVlLCJkb2MiOiJTaWducyByZXF1ZXN0IHdpdGggQVdTIFNpZ25hdHVyZSBWZXJzaW9uIDQuIiwibmFtZSI6InB1dF9hd3Nfc2lndjQifV0sInJlc3BvbnNlX3N0ZXBzIjpbeyJhY3RpdmUiOnRydWUsImRvYyI6IlJldHJpZXMgYSByZXF1ZXN0IGluIGZhY2Ugb2YgZXJyb3JzLiIsIm5hbWUiOiJyZXRyeSJ9LHsiYWN0aXZlIjp0cnVlLCJkb2MiOiJIYW5kbGVzIEhUVFAgNHh4LzV4eCBlcnJvciByZXNwb25zZXMuIiwibmFtZSI6ImhhbmRsZV9odHRwX2Vycm9ycyJ9LHsiYWN0aXZlIjp0cnVlLCJkb2MiOiJGb2xsb3dzIHJlZGlyZWN0cy4iLCJuYW1lIjoicmVkaXJlY3QifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiRGVjb21wcmVzc2VzIHRoZSByZXNwb25zZSBib2R5IGJhc2VkIG9uIHRoZSBgY29udGVudC1lbmNvZGluZ2AgaGVhZGVyLiIsIm5hbWUiOiJkZWNvbXByZXNzX2JvZHkifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjoiVmVyaWZpZXMgdGhlIHJlc3BvbnNlIGJvZHkgY2hlY2tzdW0uIiwibmFtZSI6InZlcmlmeV9jaGVja3N1bSJ9LHsiYWN0aXZlIjp0cnVlLCJkb2MiOiJEZWNvZGVzIHJlc3BvbnNlIGJvZHkgYmFzZWQgb24gdGhlIGRldGVjdGVkIGZvcm1hdC4iLCJuYW1lIjoiZGVjb2RlX2JvZHkifSx7ImFjdGl2ZSI6dHJ1ZSwiZG9jIjpudWxsLCJuYW1lIjoib3V0cHV0In1dfSwidXJsIjoiaHR0cDovL2hlbGxvLWFwaS1lbGl4aXIub3JiLmxvY2FsIiwidmFyaWFibGUiOiJyZXNwIiwidmVyYnMiOlsiZ2V0IiwicG9zdCIsInB1dCIsInBhdGNoIiwiZGVsZXRlIiwiaGVhZCIsIm9wdGlvbnMiXX1dLCJxdWVyeUluZGV4IjowfQ","chunks":null,"kind":"Elixir.Merquery.SmartCell","livebook_object":"smart_cell"} -->
+
+```elixir
+req =
+  Req.new(
+    method: :get,
+    url: "http://hello-api-elixir.orb.local",
+    headers: %{},
+    params: %{}
+  )
+{req, resp} = Req.request(req)
+resp
+```
+
+```elixir
+resp.body
+```

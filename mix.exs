@@ -18,12 +18,15 @@ defmodule HelloApi.MixProject do
         hello_api: [
           include_executables_for: [:unix],
           applications: [runtime_tools: :permanent],
+          # cookie: :crypto.strong_rand_bytes(40),
+          # cookie: System.fetch_env!("RELEASE_COOKIE"),
+          cookie: "cookie-value-set-in-mix-exs-project-function",
           steps: release_steps(System.get_env("RELEASE_TAR"))
         ]
       ],
       default_release: :hello_api,
       # test config
-      test_config: "this is mix project config test value"
+      test_config: "this is the value of mix.project.test_config"
     ]
   end
 

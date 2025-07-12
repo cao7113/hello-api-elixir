@@ -38,8 +38,3 @@ tasks:
   # Add a dedicated ipv4 with: fly ips allocate-v4
   ## launch demo app from pre-built image directly
   # hello: fly launch --image flyio/hellofly:latest
-
-  # https://fly.io/docs/flyctl/install/
-  install: brew install flyctl
-  # fly auth login
-  # fly help
