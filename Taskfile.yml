@@ -53,7 +53,7 @@ tasks:
   dk.run: |
     # task dk.build
     # http://hello-api-elixir.orb.local
-    docker run --name hello-api-elixir --rm -it -p 4000:4010 \
+    docker run --name hello-api-elixir --rm -it -p 4010:4000 \
       -e "RELEASE_DISTRIBUTION=name" \
       -e "RELEASE_NODE=hi@hello-api-elixir.orb.local" \
       -e "RELEASE_COOKIE=hello" \
